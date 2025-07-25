@@ -6,7 +6,6 @@ import os
 
 @st.cache_resource
 def load_assets():
-    """Loads all necessary models, scalers, and data."""
     df = pd.read_csv(os.path.join('data', 'raw', 'customer_data.csv'))
     rf_model = joblib.load(os.path.join('models', 'rf_model.pkl'))
     kmeans_model = joblib.load(os.path.join('models', 'kmeans_model.pkl'))
@@ -18,7 +17,6 @@ df, rf_model, kmeans_model, scaler, model_columns = load_assets()
 
 
 def personalize_message(offer, customer_details):
-    """Uses NLP (template filling) to personalize the marketing message."""
     city = customer_details.get('city', 'there')
     last_seen = customer_details.get('last_seen_days_ago', 100)
     
@@ -31,7 +29,6 @@ def personalize_message(offer, customer_details):
 
 
 def get_recommendation(customer_id):
-    """Generates a personalized recommendation for a customer."""
     customer_data = df[df['customer_id'] == customer_id]
     if customer_data.empty:
         return None
